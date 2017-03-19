@@ -4,13 +4,11 @@ import * as Api from '../api/User';
 class UserStore {
     @observable isBusy;
     @observable user;
-    @observable testValue;
 
     @action
     async fetchUser() {
         this.isBusy = true;
         const user = await Api.fetchUser();
-        this.testValue = 1;
         runInAction('save user', () => {
             this.user = user;
             this.isBusy = false;
