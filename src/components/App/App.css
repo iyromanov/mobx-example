@@ -18,6 +18,12 @@
   font-size: large;
 }
 
+.App a {
+  cursor: pointer;
+  border-bottom: 1px dotted blue;
+  color: blue;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

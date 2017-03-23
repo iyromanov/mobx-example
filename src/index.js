@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
-import UserStore from './stores/UserStore';
-import ClickStore from './stores/ClickStore';
-import routes from './routes';
+import App from './components/app/app';
+import userStore from './stores/user-store';
+import clickStore from './stores/click-store';
 import './index.css';
 
 useStrict(true);
 
-const stores = { user: UserStore, click: ClickStore };
+const stores = { userStore, clickStore };
 
 ReactDOM.render(
 	<Provider { ...stores }>
-		{ routes }
+		<App />
 	</Provider>,
 	document.getElementById('root')
 );

@@ -3,35 +3,49 @@ import { inject, observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
 import logo from './img/logo.svg';
-import ClickCounter from '../ClickCounter';
-import './App.css';
+import ClickCounter from '../click-counter/click-counter';
+import './app.css';
 
-@inject('user', 'click')
+@inject('userStore', 'clickStore')
 @observer
 class App extends Component {
     componentDidMount() {
-        this.props.user.fetchUser();
+        this.props.userStore.fetchUser();
     }
 
     render() {
-        const { isBusy, name } = this.props.user;
+        const { isBusy, name } = this.props.userStore;
+        const { value } = this.props.clickStore;
 
         return (
             <div className="App">
-                <div className="App-header">
-                    <img src={ logo } className="App-logo" alt="logo" />
-                </div>
+                { this.renderHeader() }
                 
-                { isBusy && <h2>Loading...</h2> }
-                { !isBusy && <h2>{`Hello, ${name}!` }</h2> }
+                <h2>
+                    { isBusy && 'Loading...' }
+                    { !isBusy && `Hello, ${name}!` }
+                </h2>
                 
-                {/*<ClickCounter click={ { counter: this.props.click.counter } } />*/}
-                <ClickCounter />
-                
-                { this.props.children }
+                <ClickCounter { ...{ value } } />
+
+                <a onClick={ this.handleLinkClick }>Click me!</a>
+                    
                 <DevTools />
             </div>
         );
+    }
+
+    renderHeader() {
+        return (
+            <div className="App-header">
+                <img src={ logo } className="App-logo" alt="logo" />
+            </div>
+        );
+    }
+
+    handleLinkClick = () => {
+        // this.props.clickStore.value++;
+        this.props.clickStore.increment();
     }
 }
 

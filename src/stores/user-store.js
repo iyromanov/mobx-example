@@ -1,5 +1,5 @@
 import { observable, action, computed, runInAction } from 'mobx';
-import * as Api from '../api/User';
+import * as Api from '../api/user';
 
 class UserStore {
     @observable isBusy;
@@ -9,6 +9,7 @@ class UserStore {
     async fetchUser() {
         this.isBusy = true;
         const user = await Api.fetchUser();
+        
         runInAction('save user', () => {
             this.user = user;
             this.isBusy = false;
@@ -25,5 +26,4 @@ class UserStore {
     }
 }
 
-const store = new UserStore();
-export default store;
+export default new UserStore();
